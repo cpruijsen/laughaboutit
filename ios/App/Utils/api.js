@@ -1,4 +1,4 @@
-export let api = {
+let api = {
   getUserInfo (user) {
     // function to get username, avatar
     /* example:
@@ -26,3 +26,5 @@ export let api = {
   }
   // other functions.
 };
+
+export default api;
