@@ -28,6 +28,19 @@
 		82C3BCB533E14F86BF24C618 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BBD6DE891FF4580898741F1 /* Ionicons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8DA87CCE49214D85A3461593 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01F95AE3A75B490F8BB35313 /* Octicons.ttf */; };
+		965D31551D400B58000ACDC6 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D31511D400B58000ACDC6 /* Karla-Italic.ttf */; };
+		965D31561D400B58000ACDC6 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D31521D400B58000ACDC6 /* Karla-Regular.ttf */; };
+		965D31571D400B58000ACDC6 /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D31531D400B58000ACDC6 /* Karla-Bold.ttf */; };
+		965D31581D400B58000ACDC6 /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D31541D400B58000ACDC6 /* Karla-BoldItalic.ttf */; };
+		965D31711D400B71000ACDC6 /* youre gone.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D31681D400B70000ACDC6 /* youre gone.ttf */; };
+		965D31721D400B71000ACDC6 /* Exo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 965D31691D400B71000ACDC6 /* Exo.otf */; };
+		965D31731D400B71000ACDC6 /* price.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D316A1D400B71000ACDC6 /* price.ttf */; };
+		965D31741D400B71000ACDC6 /* Chunk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 965D316B1D400B71000ACDC6 /* Chunk.otf */; };
+		965D31751D400B71000ACDC6 /* blow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D316C1D400B71000ACDC6 /* blow.ttf */; };
+		965D31761D400B71000ACDC6 /* carbon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D316D1D400B71000ACDC6 /* carbon.ttf */; };
+		965D31771D400B71000ACDC6 /* Adler.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D316E1D400B71000ACDC6 /* Adler.ttf */; };
+		965D31781D400B71000ACDC6 /* baveuse.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D316F1D400B71000ACDC6 /* baveuse.ttf */; };
+		965D31791D400B71000ACDC6 /* Peace.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 965D31701D400B71000ACDC6 /* Peace.ttf */; };
 		96D313671D398C96003C1B6C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D313641D398C95003C1B6C /* FBSDKShareKit.framework */; };
 		96D313691D398C96003C1B6C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D313651D398C96003C1B6C /* FBSDKCoreKit.framework */; };
 		96D3136B1D398C96003C1B6C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D313661D398C96003C1B6C /* FBSDKLoginKit.framework */; };
@@ -231,6 +244,19 @@
 		6BB34B079C4043BCA1268481 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/iOS/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		965D31511D400B58000ACDC6 /* Karla-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Karla-Italic.ttf"; path = "../../../Downloads/Fonts/Karla/Karla-Italic.ttf"; sourceTree = "<group>"; };
+		965D31521D400B58000ACDC6 /* Karla-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Karla-Regular.ttf"; path = "../../../Downloads/Fonts/Karla/Karla-Regular.ttf"; sourceTree = "<group>"; };
+		965D31531D400B58000ACDC6 /* Karla-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Karla-Bold.ttf"; path = "../../../Downloads/Fonts/Karla/Karla-Bold.ttf"; sourceTree = "<group>"; };
+		965D31541D400B58000ACDC6 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Karla-BoldItalic.ttf"; path = "../../../Downloads/Fonts/Karla/Karla-BoldItalic.ttf"; sourceTree = "<group>"; };
+		965D31681D400B70000ACDC6 /* youre gone.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "youre gone.ttf"; path = "../../../Downloads/Fonts/Fonts for Images/youre gone.ttf"; sourceTree = "<group>"; };
+		965D31691D400B71000ACDC6 /* Exo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Exo.otf; path = "../../../Downloads/Fonts/Fonts for Images/Exo.otf"; sourceTree = "<group>"; };
+		965D316A1D400B71000ACDC6 /* price.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = price.ttf; path = "../../../Downloads/Fonts/Fonts for Images/price.ttf"; sourceTree = "<group>"; };
+		965D316B1D400B71000ACDC6 /* Chunk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Chunk.otf; path = "../../../Downloads/Fonts/Fonts for Images/Chunk.otf"; sourceTree = "<group>"; };
+		965D316C1D400B71000ACDC6 /* blow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = blow.ttf; path = "../../../Downloads/Fonts/Fonts for Images/blow.ttf"; sourceTree = "<group>"; };
+		965D316D1D400B71000ACDC6 /* carbon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = carbon.ttf; path = "../../../Downloads/Fonts/Fonts for Images/carbon.ttf"; sourceTree = "<group>"; };
+		965D316E1D400B71000ACDC6 /* Adler.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Adler.ttf; path = "../../../Downloads/Fonts/Fonts for Images/Adler.ttf"; sourceTree = "<group>"; };
+		965D316F1D400B71000ACDC6 /* baveuse.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = baveuse.ttf; path = "../../../Downloads/Fonts/Fonts for Images/baveuse.ttf"; sourceTree = "<group>"; };
+		965D31701D400B71000ACDC6 /* Peace.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Peace.ttf; path = "../../../Downloads/Fonts/Fonts for Images/Peace.ttf"; sourceTree = "<group>"; };
 		96D313641D398C95003C1B6C /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../../../Documents/Facebook SDK/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		96D313651D398C96003C1B6C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../../Documents/Facebook SDK/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		96D313661D398C96003C1B6C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../../Documents/Facebook SDK/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
@@ -587,6 +613,10 @@
 		7318CD88D2CE40DD98A25A62 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				965D31511D400B58000ACDC6 /* Karla-Italic.ttf */,
+				965D31521D400B58000ACDC6 /* Karla-Regular.ttf */,
+				965D31531D400B58000ACDC6 /* Karla-Bold.ttf */,
+				965D31541D400B58000ACDC6 /* Karla-BoldItalic.ttf */,
 				C83D60329C2C4140A67BBADD /* Entypo.ttf */,
 				C0A7CE67DFAB4991AB4D017A /* EvilIcons.ttf */,
 				46765A19FF3F4CD7A760B584 /* FontAwesome.ttf */,
@@ -595,6 +625,15 @@
 				30B9E8B485CF4F68AAD128FC /* MaterialIcons.ttf */,
 				01F95AE3A75B490F8BB35313 /* Octicons.ttf */,
 				5530F7B655D34C4F9BC8B60C /* Zocial.ttf */,
+				965D31681D400B70000ACDC6 /* youre gone.ttf */,
+				965D31691D400B71000ACDC6 /* Exo.otf */,
+				965D316A1D400B71000ACDC6 /* price.ttf */,
+				965D316B1D400B71000ACDC6 /* Chunk.otf */,
+				965D316C1D400B71000ACDC6 /* blow.ttf */,
+				965D316D1D400B71000ACDC6 /* carbon.ttf */,
+				965D316E1D400B71000ACDC6 /* Adler.ttf */,
+				965D316F1D400B71000ACDC6 /* baveuse.ttf */,
+				965D31701D400B71000ACDC6 /* Peace.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1442,17 +1481,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				965D31751D400B71000ACDC6 /* blow.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				96D314C51D39B07F003C1B6C /* DigitsKitResources.bundle in Resources */,
+				965D31791D400B71000ACDC6 /* Peace.ttf in Resources */,
+				965D31781D400B71000ACDC6 /* baveuse.ttf in Resources */,
+				965D31581D400B58000ACDC6 /* Karla-BoldItalic.ttf in Resources */,
+				965D31551D400B58000ACDC6 /* Karla-Italic.ttf in Resources */,
+				965D31571D400B58000ACDC6 /* Karla-Bold.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				F1139B174F03464E97111EA1 /* Entypo.ttf in Resources */,
+				965D31721D400B71000ACDC6 /* Exo.otf in Resources */,
+				965D31711D400B71000ACDC6 /* youre gone.ttf in Resources */,
 				BBE945F8AEE84ABC8A124634 /* EvilIcons.ttf in Resources */,
 				2D08CB30135C48518436AC8F /* FontAwesome.ttf in Resources */,
 				4268E5E6BECF489792F0EBFA /* Foundation.ttf in Resources */,
 				82C3BCB533E14F86BF24C618 /* Ionicons.ttf in Resources */,
+				965D31761D400B71000ACDC6 /* carbon.ttf in Resources */,
+				965D31771D400B71000ACDC6 /* Adler.ttf in Resources */,
 				56B09433EA5B4FCAA6EA01BE /* MaterialIcons.ttf in Resources */,
+				965D31731D400B71000ACDC6 /* price.ttf in Resources */,
 				8DA87CCE49214D85A3461593 /* Octicons.ttf in Resources */,
+				965D31561D400B58000ACDC6 /* Karla-Regular.ttf in Resources */,
 				6BF88BBF2F7C4F3AAE206D30 /* Zocial.ttf in Resources */,
+				965D31741D400B71000ACDC6 /* Chunk.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,6 +37,18 @@
   // Add any custom logic here. 
   
   NSURL *jsCodeLocation;
+  
+  // optional code to log all fonts in the app - see the printout in XCode, this helps in creating styles with custom fonts for captions and
+  // for caption rendering on the swipe cards (stretch goal).
+
+  for (NSString* family in [UIFont familyNames])
+  {
+    NSLog(@"%@", family);
+    for (NSString* name in [UIFont fontNamesForFamilyName: family])
+    {
+      NSLog(@" %@", name);
+    }
+  }
 
   [[RCTBundleURLProvider sharedSettings] setDefaults];
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];

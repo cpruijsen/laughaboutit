@@ -1,25 +1,9 @@
 import React, { Component } from 'react';
-import{
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  Image,
-  View,
-} from 'react-native'
+import{ StyleSheet, Text, Image, View} from 'react-native'
 import Swiper from 'react-native-swiper'
 import api from './../Utils/api';
-import Icon from 'react-native-vector-icons/FontAwesome';
-const leftArrow = (<Icon name="arrow-left" size={30} color="#900" />);
-const rightArrow = (<Icon name="arrow-right" size={30} color="#900" />);
-
 const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton,
-  GraphRequest,
-  GraphRequestManager,
-  LoginManager,
-  AccessToken
-} = FBSDK;
+const { LoginButton, GraphRequest, GraphRequestManager, LoginManager, AccessToken } = FBSDK;
 
 var Login = React.createClass({ // add extra permissions on next line.
   render: function() {
@@ -36,25 +20,39 @@ var Login = React.createClass({ // add extra permissions on next line.
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    console.log(data);
+                    console.log('successful login', data);
                     var userId = data.userID;
+                    
                     const infoRequest = new GraphRequest(
                       `/${userId}?fields=id,name,email,picture`,
                       null,
-                      (err, res) => { err ? console.log(err) : console.log(res); },
+                      (err, res) => { 
+                        if (err) {
+                         console.log('graph API error', err);
+                        } else {
+                          console.log('graph API success', res);  
+                          var user = {
+                            first_name: res.name.slice(0, res.name.indexOf(' ')),
+                            last_name: res.name.slice(res.name.indexOf(' ')),
+                            photo: res.picture,
+                            email: res.email,
+                            fb_username: userId,
+                            fb_access: AccessToken.getCurrentAccessToken() // refactor.
+                          };
+                          console.log('userObj pre fetch POST to DB', user);
+                          api.userSignUp(user);
+                        }},
                       );  
-                      // TODO: in the callback here - instead of console.log(res) we'd send it to the DB
-                      // and pass it down via (props) so we keep reference to it.
                     new GraphRequestManager().addRequest(infoRequest).start();
                   }
-                )
+                ).then(() => {
+                  // this.props.toPage('Home').bind(Main);
+                  // somehow navigate to Main...
+                })
               }
             }
           }
-          onLogoutFinished={
-            () => alert("logout.")
-            // route to next page ?   
-          } />
+          onLogoutFinished={ () => alert("logout.") } />
       </View>
     );
   }
@@ -67,17 +65,17 @@ var ImageSwiper = React.createClass({
         <View style={styles.slide1}>
           <Image style={styles.image} source={{uri: 'https://s3-us-west-1.amazonaws.com/labitapp/dog1.jpeg'}} />
           <Text style={styles.text}>Laugh About It!</Text>
-          <Login></Login>
+          <Login/>
         </View>
         <View style={styles.slide2}>
           <Image style={styles.image} source={{uri: 'https://s3-us-west-1.amazonaws.com/labitapp/dog2.jpeg'}} />
           <Text style={styles.text}>Every day we share an image and invite the community to make captions</Text>
-          <Login></Login>
+          <Login/>
         </View>
         <View style={styles.slide3}>
           <Image style={styles.image} source={{uri: 'https://s3-us-west-1.amazonaws.com/labitapp/dog3.jpeg'}} />
           <Text style={styles.text}>Vote on LABs by swiping left/right - and submit your own!</Text>
-          <Login></Login>
+          <Login/>
         </View>
       </Swiper>
     )
@@ -127,7 +125,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ImageSwiper></ImageSwiper>
+        <ImageSwiper/>
       </View>
     )
   }
