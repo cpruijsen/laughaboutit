@@ -1,6 +1,11 @@
 import React, { Component, } from 'react';
 import { View, StyleSheet, NavigatorIOS, TouchableOpacity, TabBarIOS, Animated, PanResponder, Text, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Main from './Main';
+import Home from './Home';
+import CreateCaption from './CreateCaption'
+import UserProfile from './UserProfile'
+import Settings from './Settings'
 
 const styles = StyleSheet.create({
   navigator: {
@@ -33,23 +38,26 @@ class ColoredView extends Component {
     Icon.getImageSource('md-arrow-back', 30).then((source) => this.setState({ backIcon: source }));
   }
 
-  _navigateToSubview() {
-    this.props.navigator.push({
-      component: ColoredView,
-      title: this.props.pageText,
-      leftButtonIcon: this.state.backIcon,
-      onLeftButtonPress: () => this.props.navigator.pop(),
-      passProps: this.props,
-    });
-  }
+//   _navigateToSubview() { // may not need this.
+//     this.props.navigator.push({
+//       component: ColoredView,
+//       title: this.props.pageText,
+//       leftButtonIcon: this.state.backIcon,
+//       onLeftButtonPress: () => this.props.navigator.pop(),
+//       passProps: this.props,
+//     });
+//   }
 
-  render() {
-    return (
-      <View style={[styles.tabContent, {backgroundColor: this.props.color}]}>
-        <Text style={styles.tabText}>{this.props.pageText}</Text>
+  /*  example tab fill.
+  <Text style={styles.tabText}>{this.props.pageText}</Text>
         <TouchableOpacity onPress={() => this._navigateToSubview()}>
           <View style={styles.button}><Text style={styles.buttonText}>Tap Me</Text></View>
-        </TouchableOpacity>
+        </TouchableOpacity>  */
+  
+  render() {
+    return (
+      <View style={styles.tabContent}>
+        {this.props.component}
       </View>
     );
   }
@@ -70,11 +78,11 @@ class TabBarIos extends Component {
     Icon.getImageSource('ios-settings', 30).then((source) => this.setState({ gearIcon: source }));
   }
 
-  _renderContent(color, pageText) {
+  _renderContent(component) {
     if (!this.state.gearIcon) {
       return false;
     }
-    const props = { color, pageText };
+    const props = { component: component };
     return (
       <NavigatorIOS
         style={styles.navigator}
@@ -102,7 +110,7 @@ class TabBarIos extends Component {
               selectedTab: 'home',
             });
           }}>
-          {this._renderContent('#414A8C', 'Home')}
+          {this._renderContent(CreateCaption)}
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title="Profile"
@@ -114,7 +122,7 @@ class TabBarIos extends Component {
               selectedTab: 'profile',
             });
           }}>
-          {this._renderContent('#090', 'Profile')}
+          {this._renderContent(UserProfile)}
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title="Starred"
@@ -126,7 +134,7 @@ class TabBarIos extends Component {
               selectedTab: 'starred',
             });
           }}>
-          {this._renderContent('#900', 'Starred')}
+          {this._renderContent(Main)}
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title="Settings"
@@ -138,7 +146,7 @@ class TabBarIos extends Component {
               selectedTab: 'settings',
             });
           }}>
-          {this._renderContent('#009', 'Settings')}
+          {this._renderContent(Settings)}
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );
