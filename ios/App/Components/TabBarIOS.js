@@ -33,41 +33,9 @@ const styles = StyleSheet.create({
   },
 });
 
-class ColoredView extends Component {
-  componentWillMount() {
-    Icon.getImageSource('md-arrow-back', 30).then((source) => this.setState({ backIcon: source }));
-  }
-
-//   _navigateToSubview() { // may not need this.
-//     this.props.navigator.push({
-//       component: ColoredView,
-//       title: this.props.pageText,
-//       leftButtonIcon: this.state.backIcon,
-//       onLeftButtonPress: () => this.props.navigator.pop(),
-//       passProps: this.props,
-//     });
-//   }
-
-  /*  example tab fill.
-  <Text style={styles.tabText}>{this.props.pageText}</Text>
-        <TouchableOpacity onPress={() => this._navigateToSubview()}>
-          <View style={styles.button}><Text style={styles.buttonText}>Tap Me</Text></View>
-        </TouchableOpacity>  */
-  
-  render() {
-    return (
-      <View style={styles.tabContent}>
-        {this.props.component}
-      </View>
-    );
-  }
-}
-
-
 class TabBarIos extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       selectedTab: 'home',
     };
@@ -78,24 +46,37 @@ class TabBarIos extends Component {
     Icon.getImageSource('ios-settings', 30).then((source) => this.setState({ gearIcon: source }));
   }
 
-  _renderContent(component) {
-    if (!this.state.gearIcon) {
-      return false;
-    }
-    const props = { component: component };
-    return (
-      <NavigatorIOS
-        style={styles.navigator}
-        initialRoute={{
-          component: ColoredView,
-          passProps: props,
-          title: pageText
-        }}
-      />
-    );
-  }
-
   render() {
+    /* to add:
+    
+        <Icon.TabBarItemIOS
+          title="Profile"
+          iconName="ios-person-outline"
+          selectedIconName="ios-person"
+          selected={this.state.selectedTab === 'profile'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'profile',
+            });
+          }}>
+          <UserProfile></UserProfile>
+        </Icon.TabBarItemIOS>
+        
+        <Icon.TabBarItemIOS
+          title="Settings"
+          iconName="ios-settings-outline"
+          selectedIconName="ios-settings"
+          selected={this.state.selectedTab === 'settings'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'settings',
+            });
+          }}>
+          <Settings></Settings>
+        </Icon.TabBarItemIOS>
+    
+    */
+    
     return (
       <TabBarIOS
         tintColor="black"
@@ -110,19 +91,7 @@ class TabBarIos extends Component {
               selectedTab: 'home',
             });
           }}>
-          {this._renderContent(CreateCaption)}
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title="Profile"
-          iconName="ios-person-outline"
-          selectedIconName="ios-person"
-          selected={this.state.selectedTab === 'profile'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'profile',
-            });
-          }}>
-          {this._renderContent(UserProfile)}
+          <Home></Home>
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title="Starred"
@@ -134,19 +103,7 @@ class TabBarIos extends Component {
               selectedTab: 'starred',
             });
           }}>
-          {this._renderContent(Main)}
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title="Settings"
-          iconName="ios-settings-outline"
-          selectedIconName="ios-settings"
-          selected={this.state.selectedTab === 'settings'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'settings',
-            });
-          }}>
-          {this._renderContent(Settings)}
+          <CreateCaption></CreateCaption>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );

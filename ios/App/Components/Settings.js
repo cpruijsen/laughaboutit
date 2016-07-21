@@ -1,6 +1,45 @@
 import React, { Component, } from 'react'
 import api from './../Utils/api'
-import { View, Text, Image, StyleSheet, TouchableHighlight} from 'react-native'
+import { View, Text, TextInput, Image, StyleSheet, TouchableHighlight} from 'react-native'
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center', 
+    marginTop: 10,
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF'
+  },
+  image: {
+    position: 'absolute',
+    top: 10,
+    left: 50,
+    width: 300,
+    height: 200
+  },
+  textInput: {
+    marginTop: 5, // TODO: change alignment.
+    marginBottom: 5,
+    position: 'absolute',
+    left: 50, 
+    width: 300,
+    height: 20, 
+    borderColor: 'gray', 
+    borderWidth: 0.5
+  },
+  buttonText: {
+    fontSize: 20 
+  },
+  button: { // TODO: change alignment.
+    width: 300,
+    marginLeft: 50,
+    marginBottom: 7,
+    backgroundColor: 'white',
+    borderColor: 'blue', 
+    borderWidth: 1
+  }
+});
 
 class Settings extends Component {
   constructor(props) {
@@ -13,19 +52,16 @@ class Settings extends Component {
       firstname: ''
     }
   }
-  
   handleSubmit() {
     // the various new states for the user properties
     var userObj = {
       first_name: this.state.firstname,
 	  last_name: this.state.lastName,
       photo: this.state.photoURL, // how to get this URL ? -- user can upload a selfie or from camera roll ? 
-      email: this.state.userEmail
+      email: this.state.userEmail // currently no validation on email - best practise would be to validate using Sendgrid or other.
     };
     api.updateUserInfo(userObj);
-  };
-  
-  
+  }
   /* view must render: 
       - current properties (<Text> </Text>)
       - change fields (<TextInput /> for text && for image ... )
@@ -34,78 +70,29 @@ class Settings extends Component {
   
   render() {
     return (
-      <View>
-        
-        <Text>{this.state.firstname}</Text>
-        <TextInput style={styles.textInput}
-          onChangeText={(text) => this.setState({firstname: text})}
-          value={this.state.firstname} maxLength={20} />
-        
-        <Text>{this.state.lastname}</Text>
-        <TextInput style={styles.textInput}
-          onChangeText={(text) => this.setState({lastname: text})}
-          value={this.state.lastname} maxLength={40} />
-        
-        <Text>{this.state.userEmail}</Text>
-        <TextInput style={styles.textInput}
-          onChangeText={(text) => this.setState({userEmail: text})}
-          value={this.state.userEmail} maxLength={60} />
-        
-        <Text>Current Image: </Text>
-        <Image style={styles.image} source={{uri: this.state.oldImage}}/>
-        
-        <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)}> Submit Changes </TouchableHighlight>
+      <View style={styles.container}>  
+          <Text>{this.state.firstname}</Text>
+          <TextInput style={styles.textInput}
+            onChangeText={(text) => this.setState({firstname: text})}
+            value={this.state.firstname} maxLength={20} />
+
+          <Text>{this.state.lastname}</Text>
+          <TextInput style={styles.textInput}
+            onChangeText={(text) => this.setState({lastname: text})}
+            value={this.state.lastname} maxLength={40} />
+
+          <Text>{this.state.userEmail}</Text>
+          <TextInput style={styles.textInput}
+            onChangeText={(text) => this.setState({userEmail: text})}
+            value={this.state.userEmail} maxLength={60} />
+
+          <Text>Current Image: </Text>
+          <Image style={styles.image} source={{uri: this.state.oldImage}}/>
+
+          <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)}> Submit Changes </TouchableHighlight>
       </View>
     )
   }
 }
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  image: {
-    paddingTop: 10,
-    width: 300,
-    height: 200
-  },
-  textInput: {
-    height: 20, 
-    borderColor: 'gray', 
-    borderWidth: 0.5
-  },
-  topCaption: { // TODO: absolute positioning at top of image
-    fontSize: 20,
-    width: 300,
-    height: 10,
-    textAlign: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: 'white'
-  },
-  bottomCaption: { // TODO: absolute positioning at bottom of image
-    fontSize: 20,
-    width: 300,
-    height: 10,
-    textAlign: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: 'white'
-  },
-  buttonText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: 'white'
-  },
-  button: {
-    textAlign: 'center',
-    color: '#ffffff',
-    marginBottom: 7,
-    borderColor: 'blue',
-    borderWidth: 1
-  }
-});
 
 export default Settings

@@ -12,13 +12,17 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   image: {
-    paddingTop: 10, // change?
+    position: 'absolute',
+    top: 10,
+    left: 50, // positioning... 
     width: 300,
     height: 200
   },
-  textInput: {
-    marginTop: 5, // TODO: change alignment.
-    marginBottom: 5,
+  textInput: { // TODO: change alignment.
+    marginTop: 5, 
+    marginBottom: 5, 
+    marginLeft: 50,
+    width: 300,
     height: 20, 
     borderColor: 'gray', 
     borderWidth: 0.5
@@ -34,7 +38,9 @@ var styles = StyleSheet.create({
   buttonText: {
     fontSize: 20 
   },
-  button: {
+  button: {  // TODO: change alignment.
+    width: 300,
+    marginLeft: 50,
     marginBottom: 7,
     backgroundColor: 'white',
     borderColor: 'blue', 
@@ -59,7 +65,8 @@ class CreateCaption extends Component {
     var caption = {
       bottomCaption: this.state.bottomCaption,
       topCaption: this.state.topCaption,
-      user: '' // passed down from props? username, id and avatar? 
+      font: this.state.fontFamilyOptions[this.state.optionIndex],
+      user: '' // passed down from props? username, id and avatar?,
     };
     api.postCaption(caption);
   }

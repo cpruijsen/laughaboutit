@@ -10,13 +10,21 @@ let api = {
       fb_access :: string 
     }
     
+    caption: {
+    font :: string
+    topCaption :: string
+    bottomCaption :: string
+    user :: ?? 
+    }
+    
+    
   */
   
   // function to get all images/captions for the day
   getDailyCaptions () {
     fetch('https://secure-hollows-18810.herokuapp.com/captions').then( (data) => {
       console.log('success getDailyCaptions', data);
-      // do something with the data, display etc.
+      return data;
     });
   },
   // function to post a user-created caption

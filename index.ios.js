@@ -18,7 +18,7 @@ import Settings from './ios/App/Components/Settings'
    render(){
     // Creates an array for the initial route stack. May be unnecessary to have initial route stack
     // so pending re-examination and possible removal. 
-    const routeStack = [{name: 'Caption', index: 0}, {name: 'Tab', index: 1}, {name: 'Home', index: 2}, {name: 'Main', index: 3}];
+    const routeStack = [{name: 'Main', index: 0}, {name: 'Tab', index: 1}, {name: 'Home', index: 2}, {name: 'Caption', index: 3}, {name: 'User', index: 4}, {name: 'Settings', index: 5}];
     // renderScene is the main bread and butter of the navigation as it is passed into the 
     // Navigator component in order to route between different components. 
     var renderScene = (route, navigator) => {
@@ -47,6 +47,12 @@ import Settings from './ios/App/Components/Settings'
       }
       if (route.name === 'Caption') {
         return <CreateCaption title={'Caption'} navigator={navigator} onForward={onForward} toPage={toPage} {...route.passProps}/>
+      }
+       if (route.name === 'User') {
+        return <UserProfile title={'Caption'} navigator={navigator} onForward={onForward} toPage={toPage} {...route.passProps}/>
+      }
+       if (route.name === 'Settings') {
+        return <Settings title={'Caption'} navigator={navigator} onForward={onForward} toPage={toPage} {...route.passProps}/>
       }
     }
     // This navigator component now holds all the components of the app. 

@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import{ StyleSheet, Text, Image, View} from 'react-native'
+import{ StyleSheet, Text, Image, View, Navigator} from 'react-native'
 import Swiper from 'react-native-swiper'
 import api from './../Utils/api';
 const FBSDK = require('react-native-fbsdk');
 const { LoginButton, GraphRequest, GraphRequestManager, LoginManager, AccessToken } = FBSDK;
 
-var Login = React.createClass({ // add extra permissions on next line.
-  render: function() {
+var navigator;
+var toPage;
+var onForward;
+
+class Login extends Component { // add extra permissions on next line.
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+  render() {
     return (
       <View>
         <LoginButton
@@ -22,6 +30,7 @@ var Login = React.createClass({ // add extra permissions on next line.
                   (data) => {
                     console.log('successful login', data);
                     var userId = data.userID;
+                    var accessToken = data.accessToken;
                     
                     const infoRequest = new GraphRequest(
                       `/${userId}?fields=id,name,email,picture`,
@@ -37,7 +46,7 @@ var Login = React.createClass({ // add extra permissions on next line.
                             photo: res.picture,
                             email: res.email,
                             fb_username: userId,
-                            fb_access: AccessToken.getCurrentAccessToken() // refactor.
+                            fb_access: accessToken
                           };
                           console.log('userObj pre fetch POST to DB', user);
                           api.userSignUp(user);
@@ -46,9 +55,8 @@ var Login = React.createClass({ // add extra permissions on next line.
                     new GraphRequestManager().addRequest(infoRequest).start();
                   }
                 ).then(() => {
-                  // this.props.toPage('Home').bind(Main);
-                  // somehow navigate to Main...
-                })
+                  toPage('Tab'); // how to pass props? var user should be passed through...
+                }) // for now a database workaround can be used.
               }
             }
           }
@@ -56,7 +64,7 @@ var Login = React.createClass({ // add extra permissions on next line.
       </View>
     );
   }
-});
+};
 
 var ImageSwiper = React.createClass({
   render: function() {
@@ -123,6 +131,10 @@ class Main extends Component {
     this.state = {} 
   } 
   render() {
+    navigator = this.props.navigator; // global work-around 
+    onForward = this.props.onForward; // as within `Login` props were not being passed.
+    toPage = this.props.toPage;
+    
     return (
       <View style={styles.container}>
         <ImageSwiper/>
