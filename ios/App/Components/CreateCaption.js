@@ -58,7 +58,8 @@ class CreateCaption extends Component {
       optionIndex: 0,
       bottomCaptionKey: 0,
       topCaptionKey: 0,
-      dailyImage: null
+      dailyImage: null,
+      photoId: null
     }
   }
   
@@ -67,9 +68,24 @@ class CreateCaption extends Component {
       caption_bottom: this.state.bottomCaption,
       caption_top: this.state.topCaption,
       font: this.state.fontFamilyOptions[this.state.optionIndex],
-      user: 'VERY USER MUCH WIN' // passed down from props? username, id and avatar?,
+      userId: 1, // passed down from props? username, id and avatar?,
+      photoId: this.state.photoId,
+      likes: 0,
+      dislikes: 0
     };
-    api.postCaption(caption);
+    console.log(caption, 'caption pre post');
+//     api.postCaption(caption);
+    fetch('https://shielded-springs-75726.herokuapp.com/captions/giveusthisday', {  // TODO: call this from api
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(caption) // review.
+    }).then( (res) => { 
+      console.log('success postCaption', res); 
+    }).catch( (err) => { 
+      console.log('error on postCaption', err); 
+    });
   }
   
   handleFontChange() {
@@ -102,6 +118,7 @@ class CreateCaption extends Component {
       }).then( (res) => {
         console.log('success getDailyRawImage', res);
         that.setState({dailyImage: res.url}); 
+        that.setState({photoId: res.id});
       }); // TODO: call this from api.getDailyRawImage() --> issue with promises.
     }
   } 

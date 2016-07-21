@@ -8,7 +8,6 @@ const { LoginButton, GraphRequest, GraphRequestManager, LoginManager, AccessToke
 var navigator;
 var toPage;
 var onForward;
-var logged;
 
 class Login extends Component { // add extra permissions on next line.
   constructor(props) {
@@ -43,15 +42,25 @@ class Login extends Component { // add extra permissions on next line.
                           console.log('graph API success', res);  
                           var user = {
                             first_name: res.name.slice(0, res.name.indexOf(' ')),
-                            last_name: res.name.slice(res.name.indexOf(' ')),
-                            photo: res.picture,
+                            last_name: res.name.slice(res.name.indexOf(' ') + 1),
+                            photo: res.picture.data.url,
                             email: res.email,
                             fb_username: userId,
                             fb_access: accessToken
                           };
                           console.log('userObj pre fetch POST to DB', user);
-                          api.userSignUp(user);
-                          logged = true;
+//                           api.userSignUp(user);
+                          fetch('https://shielded-springs-75726.herokuapp.com/users/create', { // TODO: call this from api
+                            method: 'POST',
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(user)
+                          }).then( (res) => {
+                            console.log('success userSignUp', res);
+                          }).catch( (err) => {
+                            console.log('error userSignUp', err);
+                          });
                         }},
                       );  
                     new GraphRequestManager().addRequest(infoRequest).start();
@@ -133,11 +142,11 @@ class Main extends Component {
     this.state = {} 
   } 
   
-  componentDidMount() {
-    if (logged) { // TODO: make this actually work, redirect when already logged in.
-      toPage('Tab');
-    }
-  }
+//   componentDidMount() {
+//     if (logged) { // TODO: make this actually work, redirect when already logged in.
+//       toPage('Tab');
+//     }
+//   }
   render() {
     navigator = this.props.navigator; // global work-around 
     onForward = this.props.onForward; // as within `Login` props were not being passed.

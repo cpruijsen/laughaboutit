@@ -34,8 +34,11 @@ let api = {
   },
   // function to post a user-created caption
   postCaption (caption) {
-    fetch('https://shielded-springs-75726.herokuapp.com/captions', { 
+    fetch('https://shielded-springs-75726.herokuapp.com/captions/giveusthisday', { 
       method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(caption) // review.
     }).then( (res) => { 
       console.log('success postCaption', res); 
@@ -47,6 +50,9 @@ let api = {
   postImage (image) {
     fetch('https://shielded-springs-75726.herokuapp.com/captions', { 
       method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(image)
     }).then( (res) => { 
       console.log('success postImage', res); 
@@ -73,13 +79,36 @@ let api = {
   updateUserInfo (user) {
     // function to update user info from a settings page ( or elsewhere? )
   },
-  upVote (caption) {
+  upVote (captionId) {
     // function to upvote a particular caption
+    fetch('https://shielded-springs-75726.herokuapp.com/captions/upvote', {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: json.Stringify(captionId)
+    }).then( () => { 
+      console.log('success on upVote');
+    });
+  },
+  downVote (captionId) {
+     fetch('https://shielded-springs-75726.herokuapp.com/captions/downvote', {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: json.Stringify(captionId)
+    }).then( () => { 
+      console.log('success on downVote');
+    });
   },
   // register user in our DB, used for later updating of user records.
   userSignUp (user) {
     fetch('https://shielded-springs-75726.herokuapp.com/users/create', {
       method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(user)
     }).then( (res) => {
       console.log('success userSignUp', res);

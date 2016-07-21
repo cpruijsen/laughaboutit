@@ -74,7 +74,7 @@ class Home extends Component {
     
     // fetch all the captions (top-bottom) and likes in sorted order (server side sorting)
     // only change state if caption fetch successful. Create arrays for each prop.
-     fetch('https://shielded-springs-75726.herokuapp.com/captions').then( (data) => {
+     fetch('https://shielded-springs-75726.herokuapp.com/captions/giveusthisday').then( (data) => {
       return data.json();
      }).then( (res) => {
       console.log('success getDailyCaptions', res);
