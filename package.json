@@ -15,6 +15,7 @@
     "react-native-fabric-digits": "github:jeanlebrument/react-native-fabric-digits",
     "react-native-fbsdk": "^0.2.2",
     "react-native-swiper": "^1.4.6",
-    "react-native-vector-icons": "^2.0.3"
+    "react-native-vector-icons": "^2.0.3",
+    "underscore": "^1.8.3"
   }
 }

@@ -8,6 +8,7 @@ const { LoginButton, GraphRequest, GraphRequestManager, LoginManager, AccessToke
 var navigator;
 var toPage;
 var onForward;
+var logged;
 
 class Login extends Component { // add extra permissions on next line.
   constructor(props) {
@@ -50,6 +51,7 @@ class Login extends Component { // add extra permissions on next line.
                           };
                           console.log('userObj pre fetch POST to DB', user);
                           api.userSignUp(user);
+                          logged = true;
                         }},
                       );  
                     new GraphRequestManager().addRequest(infoRequest).start();
@@ -130,6 +132,12 @@ class Main extends Component {
     super(props)
     this.state = {} 
   } 
+  
+  componentDidMount() {
+    if (logged) { // TODO: make this actually work, redirect when already logged in.
+      toPage('Tab');
+    }
+  }
   render() {
     navigator = this.props.navigator; // global work-around 
     onForward = this.props.onForward; // as within `Login` props were not being passed.

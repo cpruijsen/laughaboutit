@@ -44,7 +44,7 @@ var styles = StyleSheet.create({
     marginBottom: 7,
     backgroundColor: 'white',
     borderColor: 'blue', 
-    borderWidth: 1
+    borderWidth: 0.5
   }
 });
 
@@ -57,16 +57,17 @@ class CreateCaption extends Component {
       fontFamilyOptions: ['Karla', 'Karla-Italic', 'Karla-BoldItalic', 'Karla-Bold'],
       optionIndex: 0,
       bottomCaptionKey: 0,
-      topCaptionKey: 0
+      topCaptionKey: 0,
+      dailyImage: null
     }
   }
   
   handleSubmit() {
     var caption = {
-      bottomCaption: this.state.bottomCaption,
-      topCaption: this.state.topCaption,
+      caption_bottom: this.state.bottomCaption,
+      caption_top: this.state.topCaption,
       font: this.state.fontFamilyOptions[this.state.optionIndex],
-      user: '' // passed down from props? username, id and avatar?,
+      user: 'VERY USER MUCH WIN' // passed down from props? username, id and avatar?,
     };
     api.postCaption(caption);
   }
@@ -92,18 +93,27 @@ class CreateCaption extends Component {
       fontFamily: this.state.fontFamilyOptions[this.state.optionIndex]
     };
   }
-  
-  // this will be a dynamic image - based on the daily image 
-  // <Image style={styles.image} source={{ uri: {dailyImage} }}/>
-  // currently returning an error from endpoint.
+ 
+  componentWillMount() { 
+    var that = this;
+    if (!this.state.dailyImage) {
+      fetch('https://shielded-springs-75726.herokuapp.com/photos/giveusthisday').then( (data) => {
+        return data.json();
+      }).then( (res) => {
+        console.log('success getDailyRawImage', res);
+        that.setState({dailyImage: res.url}); 
+      }); // TODO: call this from api.getDailyRawImage() --> issue with promises.
+    }
+  } 
   
   render() {
-    var dailyImage = api.getDailyRawImage();
+    
+    // TODO: add a success message on submit caption.
     
     return (
       <View style={styles.container}>
         
-        <Image style={styles.image} source={{uri: 'https://s3-us-west-1.amazonaws.com/labitapp/dog1.jpeg'}}> 
+        <Image style={styles.image} source={{uri: this.state.dailyImage || 'https://s3-us-west-1.amazonaws.com/labitapp/dog1.jpeg'}}> 
           <View style={styles.topAlign}>
            <Text key={this.state.topCaptionKey} style={this.fontStyle()}>{this.state.topCaption}</Text>
           </View>
