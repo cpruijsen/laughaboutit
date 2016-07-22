@@ -1,26 +1,6 @@
 let api = {
-  
   /* format for post:
-    userSignUp: {
-      first_name :: string 
-	  last_name :: string
-      photo :: string
-      email :: string
-      fb_username :: string
-      fb_access :: string 
-    }
-    
-    caption: {
-    font :: string
-    caption_top :: string
-    caption_bottom :: string
-    user :: ?? 
-    }
-    
-   ** do we need 
-   .then( (data) => {
-      return data.json();
-    }). as intermediate step? 
+   >> https://docs.google.com/document/d/1rxw_dFSn0u00L-nwGLMVzQUIo_du6G0BJiq1Qlispy4/edit?usp=sharing
   */
   
   // function to get all images/captions for the day
@@ -90,7 +70,7 @@ let api = {
     }).then( () => { 
       console.log('success on upVote');
     });
-  },
+  }, // downvote a caption (swipe no/left)
   downVote (captionId) {
      fetch('https://shielded-springs-75726.herokuapp.com/captions/downvote', {
       method: 'PUT',

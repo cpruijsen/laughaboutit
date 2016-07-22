@@ -9,7 +9,7 @@ var navigator;
 var toPage;
 var onForward;
 
-class Login extends Component { // add extra permissions on next line.
+class Login extends Component { // add extra FB permissions on next line.
   constructor(props) {
     super(props)
     this.state = {}
@@ -18,6 +18,7 @@ class Login extends Component { // add extra permissions on next line.
     return (
       <View>
         <LoginButton
+          // TODO: add props for navigator etc to Login, LoginButton and ImageSwiper
           publishPermissions={["publish_actions"]}
           onLoginFinished={
             (error, result) => {
@@ -26,6 +27,7 @@ class Login extends Component { // add extra permissions on next line.
               } else if (result.isCancelled) {
                 alert("login is cancelled.");
               } else {
+                var dbUserId;
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
                     console.log('successful login', data);
@@ -56,8 +58,12 @@ class Login extends Component { // add extra permissions on next line.
                               "Content-Type": "application/json",
                             },
                             body: JSON.stringify(user)
+                          }).then( (data) => {
+                            return data.json();
                           }).then( (res) => {
-                            console.log('success userSignUp', res);
+                            console.log('response on userSignUp', res.newUserId);
+                            dbUserId = res.newUserId;
+                            toPage('Tab', dbUserId); 
                           }).catch( (err) => {
                             console.log('error userSignUp', err);
                           });
@@ -65,9 +71,11 @@ class Login extends Component { // add extra permissions on next line.
                       );  
                     new GraphRequestManager().addRequest(infoRequest).start();
                   }
-                ).then(() => {
-                  toPage('Tab'); // how to pass props? var user should be passed through...
-                }) // for now a database workaround can be used.
+                ).then(() => { // do we need this promise? 
+//                   console.log('never happens?');
+//                   console.log('dbUserId pre send', dbUserId);
+//                   toPage('Tab', dbUserId); 
+                }) 
               }
             }
           }

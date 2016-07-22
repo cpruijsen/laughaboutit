@@ -68,7 +68,7 @@ class CreateCaption extends Component {
       caption_bottom: this.state.bottomCaption,
       caption_top: this.state.topCaption,
       font: this.state.fontFamilyOptions[this.state.optionIndex],
-      userId: 1, // passed down from props? username, id and avatar?,
+      userId: this.props.user, // passed down Main -> index -> Tab -> CreateCaption
       photoId: this.state.photoId,
       likes: 0,
       dislikes: 0

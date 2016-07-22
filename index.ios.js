@@ -16,6 +16,7 @@ import Settings from './ios/App/Components/Settings'
 
  class test2 extends Component {
    render(){
+     var that = this; 
     // Creates an array for the initial route stack. May be unnecessary to have initial route stack
     // so pending re-examination and possible removal. 
     const routeStack = [{name: 'Main', index: 0}, {name: 'Tab', index: 1}, {name: 'Home', index: 2}, {name: 'Caption', index: 3}, {name: 'User', index: 4}, {name: 'Settings', index: 5}];
@@ -31,9 +32,11 @@ import Settings from './ios/App/Components/Settings'
         route.index > 0 ? navigator.pop() : null;
       }
       // Main function to implement dynamic navigation:
-      var toPage = (pageName) => {
-        const nextIndex = route.index + 1;
-        navigator.push({name: pageName, index: nextIndex});
+      var toPage = (pageName, userId) => { 
+        const nextIndex = route.index + 1; 
+        navigator.push({name: pageName, index: nextIndex, userId: userId}); 
+        // hackaround for passing props http://stackoverflow.com/questions/33830493/react-native-navigator
+        // on Tab -> var userId = this.props.navigator.navigationContext.currentRoute.userId; 
       }
       /* **************************** MAIN BODY OF THE ROUTER ******************************** */
       if (route.name === 'Main') {

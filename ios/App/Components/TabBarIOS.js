@@ -47,8 +47,9 @@ class TabBarIos extends Component {
   }
 
   render() {
-    /* to add:
+    var userId = this.props.navigator.navigationContext.currentRoute.userId; // current logged in user.
     
+    /* to add:
         <Icon.TabBarItemIOS
           title="Profile"
           iconName="ios-person-outline"
@@ -74,9 +75,7 @@ class TabBarIos extends Component {
           }}>
           <Settings></Settings>
         </Icon.TabBarItemIOS>
-    
     */
-    
     return (
       <TabBarIOS
         tintColor="black"
@@ -91,7 +90,7 @@ class TabBarIos extends Component {
               selectedTab: 'home',
             });
           }}>
-          <Home></Home>
+          <Home user={userId}></Home>
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title="Starred"
@@ -103,7 +102,7 @@ class TabBarIos extends Component {
               selectedTab: 'starred',
             });
           }}>
-          <CreateCaption></CreateCaption>
+          <CreateCaption user={userId}></CreateCaption>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );

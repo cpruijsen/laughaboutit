@@ -45,6 +45,7 @@ var styles = StyleSheet.create({
 });
 
 class Home extends Component {
+  // NOTE: this.props.user === userId
   constructor(props) {
     super(props)
     this.state = {
@@ -90,7 +91,12 @@ class Home extends Component {
           return caption.likes;   // I don't think we need 'dislikes'
         });
         var fontFamily = _.map(res, function(caption) {
-          return caption.font;
+          if (caption.font) {
+            return caption.font.slice(1, caption.font.length-1);
+          } else {
+            return caption.font;
+          }
+          
         });
 
         that.setState({topCaptions: topCaptions});
@@ -128,7 +134,6 @@ class Home extends Component {
   }
   
   render() {
-    
     return (
       <View style={styles.container}>
         
