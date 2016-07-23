@@ -9,8 +9,6 @@ import api from './../Utils/api';
 import _ from 'underscore';
 import NoMoreCards from './Default';
 
-// the main tinder swiping view.
-
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -105,7 +103,7 @@ class Home extends Component {
         that.setState({fontFamily: fontFamily});
         that.setState({noMoreCaptions: false});
       }
-     }); // TODO: call this from api.getDailyRawImage() --> issue with promises.
+     }); // TODO: call this from api
   }
   
   fontStyle(captionType) { // TODO: on each caption swap // next image we need to increment topCaptionKey && bottomCaptionKey
@@ -145,10 +143,9 @@ class Home extends Component {
             <Text key={this.state.bottomCaptionKey} style={this.fontStyle()}>{this.state.bottomCaptions[this.state.captionIndex] || 'no bottom'}</Text>
           </View>
         </Image> 
-        <Text style={styles.text}>{this.state.likes[this.state.captionIndex] || 'no votes --> 0'} </Text> 
+        <Text style={styles.text}>Number of Likes: {this.state.likes[this.state.captionIndex] || 'no votes --> 0'} </Text> 
         
         {this.state.noMoreImages ? <NoMoreCards/> : <Text></Text>}
-        
       </View>
     )
   }

@@ -19,6 +19,7 @@ class Login extends Component { // add extra FB permissions on next line.
       <View>
         <LoginButton
           // TODO: add props for navigator etc to Login, LoginButton and ImageSwiper
+          // TODO: validate if already logged in when opening app, skip login page.
           publishPermissions={["publish_actions"]}
           onLoginFinished={
             (error, result) => {
@@ -62,7 +63,7 @@ class Login extends Component { // add extra FB permissions on next line.
                             return data.json();
                           }).then( (res) => {
                             console.log('response on userSignUp', res.newUserId);
-                            dbUserId = res.newUserId;
+                            dbUserId = res.newUserId; // custom to this component, so maybe best not to delegate to api
                             toPage('Tab', dbUserId); 
                           }).catch( (err) => {
                             console.log('error userSignUp', err);
@@ -71,11 +72,7 @@ class Login extends Component { // add extra FB permissions on next line.
                       );  
                     new GraphRequestManager().addRequest(infoRequest).start();
                   }
-                ).then(() => { // do we need this promise? 
-//                   console.log('never happens?');
-//                   console.log('dbUserId pre send', dbUserId);
-//                   toPage('Tab', dbUserId); 
-                }) 
+                ) // removed previous chained promise.
               }
             }
           }
@@ -149,12 +146,7 @@ class Main extends Component {
     super(props)
     this.state = {} 
   } 
-  
-//   componentDidMount() {
-//     if (logged) { // TODO: make this actually work, redirect when already logged in.
-//       toPage('Tab');
-//     }
-//   }
+
   render() {
     navigator = this.props.navigator; // global work-around 
     onForward = this.props.onForward; // as within `Login` props were not being passed.

@@ -45,6 +45,9 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'blue', 
     borderWidth: 0.5
+  },
+  text: {
+    fontSize: 20
   }
 });
 
@@ -59,11 +62,14 @@ class CreateCaption extends Component {
       bottomCaptionKey: 0,
       topCaptionKey: 0,
       dailyImage: null,
-      photoId: null
+      photoId: null,
+      successMessage: false,
+      errorMessage: false
     }
   }
   
-  handleSubmit() {
+  handleSubmit() { // NOTE: could throttle this somehow, to limit uploads.
+    var that = this; // currently not limited, successMessage is shown on upload.
     var caption = {
       caption_bottom: this.state.bottomCaption,
       caption_top: this.state.topCaption,
@@ -80,10 +86,13 @@ class CreateCaption extends Component {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(caption) // review.
+      body: JSON.stringify(caption) 
     }).then( (res) => { 
+      that.setState({successMessage: true});
+      that.setState({errorMessage: false});
       console.log('success postCaption', res); 
     }).catch( (err) => { 
+      that.setState({errorMessage: true});
       console.log('error on postCaption', err); 
     });
   }
@@ -119,14 +128,11 @@ class CreateCaption extends Component {
         console.log('success getDailyRawImage', res);
         that.setState({dailyImage: res.url}); 
         that.setState({photoId: res.id});
-      }); // TODO: call this from api.getDailyRawImage() --> issue with promises.
+      }); // TODO: call this from api
     }
   } 
   
   render() {
-    
-    // TODO: add a success message on submit caption.
-    
     return (
       <View style={styles.container}>
         
@@ -152,8 +158,11 @@ class CreateCaption extends Component {
         </TouchableHighlight>
         
         <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)}>
-          <Text style={styles.buttonText}>Submit Caption</Text>
+          <Text style={styles.buttonText}>Submit Caption</Text> 
         </TouchableHighlight>
+        
+        {this.state.successMessage ? <Text style={styles.text}>Upload Success!</Text> : <Text></Text>}
+        {this.state.errorMessage ? <Text style={styles.text}>Upload Error! Try Again :) </Text> : <Text></Text>}
         
       </View>
     )

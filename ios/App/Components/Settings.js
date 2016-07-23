@@ -55,12 +55,13 @@ class Settings extends Component {
   handleSubmit() {
     // the various new states for the user properties
     var userObj = {
+      userId: this.props.user,
       first_name: this.state.firstname,
 	  last_name: this.state.lastName,
       photo: this.state.photoURL, // how to get this URL ? -- user can upload a selfie or from camera roll ? 
       email: this.state.userEmail // currently no validation on email - best practise would be to validate using Sendgrid or other.
     };
-    api.updateUserInfo(userObj);
+    api.updateUserInfo(userObj); // 
   }
   /* view must render: 
       - current properties (<Text> </Text>)
@@ -86,10 +87,10 @@ class Settings extends Component {
             onChangeText={(text) => this.setState({userEmail: text})}
             value={this.state.userEmail} maxLength={60} />
 
-          <Text>Current Image: </Text>
+          <Text>Current Image:</Text>
           <Image style={styles.image} source={{uri: this.state.oldImage}}/>
 
-          <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)}> Submit Changes </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)}>Submit Changes</TouchableHighlight>
       </View>
     )
   }

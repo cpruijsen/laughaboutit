@@ -50,31 +50,7 @@ class TabBarIos extends Component {
     var userId = this.props.navigator.navigationContext.currentRoute.userId; // current logged in user.
     
     /* to add:
-        <Icon.TabBarItemIOS
-          title="Profile"
-          iconName="ios-person-outline"
-          selectedIconName="ios-person"
-          selected={this.state.selectedTab === 'profile'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'profile',
-            });
-          }}>
-          <UserProfile></UserProfile>
-        </Icon.TabBarItemIOS>
-        
-        <Icon.TabBarItemIOS
-          title="Settings"
-          iconName="ios-settings-outline"
-          selectedIconName="ios-settings"
-          selected={this.state.selectedTab === 'settings'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'settings',
-            });
-          }}>
-          <Settings></Settings>
-        </Icon.TabBarItemIOS>
+       
     */
     return (
       <TabBarIOS
@@ -103,6 +79,30 @@ class TabBarIos extends Component {
             });
           }}>
           <CreateCaption user={userId}></CreateCaption>
+        </Icon.TabBarItemIOS>
+         <Icon.TabBarItemIOS
+          title="Profile"
+          iconName="ios-person-outline"
+          selectedIconName="ios-person"
+          selected={this.state.selectedTab === 'profile'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'profile',
+            });
+          }}>
+          <UserProfile user={userId}></UserProfile>
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
+          title="Settings"
+          iconName="ios-settings-outline"
+          selectedIconName="ios-settings"
+          selected={this.state.selectedTab === 'settings'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'settings',
+            });
+          }}>
+          <Settings user={userId}></Settings>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );
