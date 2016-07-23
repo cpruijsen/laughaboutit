@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { View, } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import api from './../Utils/api';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // styling TODO: import icons
@@ -33,34 +33,20 @@ class UserProfile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      first_name: '',
-      last_name: '',
-      userPhoto: '',
-      userBio: '', // stretch goal
+      first_name: 'TEST',
+      last_name: 'LAST',
+      userPhoto: 'https://s3-us-west-1.amazonaws.com/labitapp/dog1.jpeg',
+      userBio: 'something wicked', // stretch goal
       userCaptions: [] // stretch goal
     }
   }
   
-  componentWillMount() {
-    var that = this;
+//   componentWillMount() {
+//     var that = this;
     
-    var user = api.getUserInfo(this.props.user); // check if it works
-    console.log(user);
-    
-    fetch('https://shielded-springs-75726.herokuapp.com/users', {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: json.Stringify(this.props.user)
-    }).then( (data) => { // TODO: check for endpoint with team.
-      return data.json();
-    }).then( (res) => {
-      console.log('success getUserInfo', res); // {first_name: string, last_name: string, ...}
-      // TODO: that.setState({}); for all props being returned.
-    });
-    
-  }
+//     var user = api.getUserInfo(this.props.user); // check if it works
+//     console.log(user);
+//   }
 
   render() {
     return (

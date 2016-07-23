@@ -1,11 +1,9 @@
-'use strict';
-
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Animated, PanResponder, Image} from 'react-native';
 import clamp from 'clamp';
 import NoMoreCards from './../Components/Default';
 
-var SWIPE_THRESHOLD = 120;
+var SWIPE_THRESHOLD = 120; // why is the limit 120? 
 
 class SwipeCards extends Component {
   constructor(props) {
@@ -71,12 +69,13 @@ class SwipeCards extends Component {
         if (Math.abs(this.state.pan.x._value) > SWIPE_THRESHOLD) {
 
           this.state.pan.x._value > 0
-            ? this.props.handleYup(this.state.card)
-            : this.props.handleNope(this.state.card)
+            ? this.props.handleYup(this.state.card.id) 
+            : this.props.handleNope(this.state.card.id) 
 
-          this.props.cardRemoved
-            ? this.props.cardRemoved(this.props.cards.indexOf(this.state.card))
-            : null
+// can we do without this? 
+//           this.props.cardRemoved 
+//             ? this.props.cardRemoved(this.props.cards.indexOf(this.state.card))
+//             : null
 
           Animated.decay(this.state.pan, {
             velocity: {x: velocity, y: vy},

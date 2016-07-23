@@ -61,7 +61,7 @@ let api = {
       headers: {
         "Content-Type": "application/json",
       },
-      body: json.Stringify(newUserInfo)
+      body:JSON.Stringify(newUserInfo)
     }).then( () => { 
       console.log('success on upVote');
     });
@@ -72,7 +72,7 @@ let api = {
       headers: {
         "Content-Type": "application/json",
       },
-      body: json.Stringify(captionId)
+      body:JSON.Stringify(captionId)
     }).then( () => { 
       console.log('success on upVote');
     });
@@ -83,7 +83,7 @@ let api = {
       headers: {
         "Content-Type": "application/json",
       },
-      body: json.Stringify(captionId)
+      body: JSON.Stringify(captionId)
     }).then( () => { 
       console.log('success on downVote');
     });
@@ -109,7 +109,7 @@ let api = {
       headers: {
         "Content-Type": "application/json",
       },
-      body: json.Stringify(userId)
+      body: JSON.Stringify(userId)
     }).then( (data) => { // TODO: check for endpoint with team.
       return data.json();
     }).then( (res) => {

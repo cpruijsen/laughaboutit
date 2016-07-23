@@ -50,37 +50,7 @@ class TabBarIos extends Component {
     var userId = this.props.navigator.navigationContext.currentRoute.userId; // current logged in user.
     
     /* to add:
-       
-    */
-    return (
-      <TabBarIOS
-        tintColor="black"
-        barTintColor="#3abeff">
-        <Icon.TabBarItemIOS
-          title="Home"
-          iconName="ios-home-outline"
-          selectedIconName="ios-home"
-          selected={this.state.selectedTab === 'home'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'home',
-            });
-          }}>
-          <Home user={userId}></Home>
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title="Starred"
-          iconName="ios-star-outline"
-          selectedIconName="ios-star"
-          selected={this.state.selectedTab === 'starred'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'starred',
-            });
-          }}>
-          <CreateCaption user={userId}></CreateCaption>
-        </Icon.TabBarItemIOS>
-         <Icon.TabBarItemIOS
+                <Icon.TabBarItemIOS
           title="Profile"
           iconName="ios-person-outline"
           selectedIconName="ios-person"
@@ -103,6 +73,35 @@ class TabBarIos extends Component {
             });
           }}>
           <Settings user={userId}></Settings>
+        </Icon.TabBarItemIOS>
+    */
+    return (
+      <TabBarIOS
+        tintColor="black"
+        barTintColor="#3abeff">
+        <Icon.TabBarItemIOS
+          title="Home"
+          iconName="ios-home-outline"
+          selectedIconName="ios-home"
+          selected={this.state.selectedTab === 'home'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'home',
+            });
+          }}>
+          <Home user={userId}></Home>
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
+          title="Create"
+          iconName="ios-star-outline"
+          selectedIconName="ios-star"
+          selected={this.state.selectedTab === 'create'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'create',
+            });
+          }}>
+          <CreateCaption user={userId}></CreateCaption>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );
