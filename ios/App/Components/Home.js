@@ -57,6 +57,12 @@ var styles = StyleSheet.create({
 class Card extends Component {
   // TODO: add userinfo to bottom of card.
   fontStyle(font) {  // NOTE: was dependent on re-renders due to keys on text elements before.
+    if (font) {
+      font = font.slice(1, font.length-1);
+    } else {
+      font = 'Karla-Bold';
+    }
+    
     return {  
       fontSize: 20,
       width: 300,
@@ -64,7 +70,7 @@ class Card extends Component {
       textAlign: 'center',
       backgroundColor: 'rgba(0,0,0,0)',
       color: 'white',
-      fontFamily: font || 'Karla-Bold' 
+      fontFamily: font
     };
   }
 
@@ -150,16 +156,10 @@ class Home extends Component { // NOTE: this.props.user === userId for current l
       console.log('success getDailyCaptions', res);  // returns an array of objects [{caption1}, {caption2}, {caption3}] 
       if (res) { 
         var cards = _.map(res, function(caption) {
-          var captionfont;
-          if (caption.font) {
-            captionfont = caption.font.slice(1, caption.font.length-1); // needed due to db issue with double string. ''fontname''
-          } else {
-             captionfont = undefined;
-          }
           return { // TODO: check if res includes posting userId
             caption_bottom: caption.caption_bottom,
             caption_top: caption.caption_top,
-            font: captionfont,
+            font: caption.font,
             likes: caption.likes,
             dislikes: caption.dislikes,
             id: caption.id,
