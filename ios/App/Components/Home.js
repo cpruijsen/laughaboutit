@@ -82,7 +82,7 @@ class Card extends Component {
              <Text style={this.fontStyle(this.props.font)}>{this.props.caption_bottom || 'no bottom'}</Text>
            </View>
         </Image> 
-        <Text style={styles.text}>Number of Likes: {this.props.likes || 'no votes --> 0'} </Text>   
+        <Text style={styles.text}>Number of Likes: {this.props.likes || 0} </Text>   
       </View>
     )
   }
@@ -91,7 +91,7 @@ class Card extends Component {
 class Swiper extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {} // component doesn't need state as far as I can tell
+		this.state = {} 
 	}
 
 	handleUpvote(captionId) {
@@ -104,10 +104,10 @@ class Swiper extends Component {
 	render() {
 		return (
 			<SwipeCards
-			  cards={this.props.cards} // home - props on swiper - swipecards.
+			  cards={this.props.cards} 
 			  loop={false}
 
-			  renderCard={(cardData) => <Card {...cardData} />} // didn't know you could wrap cardData that way
+			  renderCard={(cardData) => <Card {...cardData} />} 
 			  renderNoMoreCards={() => <NoMoreCards/>}
 			  showYup={true}
 			  showNope={true}

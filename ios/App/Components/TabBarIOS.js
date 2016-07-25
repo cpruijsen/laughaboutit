@@ -7,6 +7,7 @@ import CreateCaption from './CreateCaption';
 import UserProfile from './UserProfile';
 import Settings from './Settings';
 import TopRated from './TopRated';
+import SubmitPhoto from './SubmitPhoto';
 
 const styles = StyleSheet.create({
   navigator: {
@@ -132,6 +133,18 @@ class TabBarIos extends Component {
             });
           }}>
           <TopRated user={userId}></TopRated>
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
+          title="SubmitPhoto"
+          iconName="ios-star-outline"
+          selectedIconName="ios-star"
+          selected={this.state.selectedTab === 'submit'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'submit',
+            });
+          }}>
+          <SubmitPhoto user={userId}></SubmitPhoto>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );

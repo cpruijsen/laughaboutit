@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Animated, PanResponder, Image, TouchableHighlig
 import clamp from 'clamp';
 import NoMoreCards from './../Components/Default';
 
-var SWIPE_THRESHOLD = 120; // why is the limit 120? 
+var SWIPE_THRESHOLD = 120; 
 
 class SwipeCards extends Component {
   constructor(props) {
@@ -121,6 +121,7 @@ class SwipeCards extends Component {
     } else if (this.state.noMoreCards) {
       this.renderNoMoreCards();  // NOTE: not rendering.
     } else {
+      this.renderNoMoreCards();
       // do a fetch  -> TODO: add a refresh button to NoMoreCards
     }  
   }
