@@ -3,9 +3,10 @@ import { View, StyleSheet, NavigatorIOS, TouchableOpacity, TabBarIOS, Animated, 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Main from './Main';
 import Home from './Home';
-import CreateCaption from './CreateCaption'
-import UserProfile from './UserProfile'
-import Settings from './Settings'
+import CreateCaption from './CreateCaption';
+import UserProfile from './UserProfile';
+import Settings from './Settings';
+import TopRated from './TopRated';
 
 const styles = StyleSheet.create({
   navigator: {
@@ -50,7 +51,10 @@ class TabBarIos extends Component {
     var userId = this.props.navigator.navigationContext.currentRoute.userId; // current logged in user.
     
     /* to add:
-                <Icon.TabBarItemIOS
+    
+    // NOTE: too many tabs? maybe don't list UserProfile as a tab, instead have it as click-through only on captions.
+    
+        <Icon.TabBarItemIOS
           title="Profile"
           iconName="ios-person-outline"
           selectedIconName="ios-person"
@@ -59,9 +63,23 @@ class TabBarIos extends Component {
             this.setState({
               selectedTab: 'profile',
             });
-          }}>
+          }}>  
           <UserProfile user={userId}></UserProfile>
         </Icon.TabBarItemIOS>
+      
+        <Icon.TabBarItemIOS
+          title="Top Rated"
+          iconName="ios-star-outline"
+          selectedIconName="ios-star"
+          selected={this.state.selectedTab === 'top'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'top',
+            });
+          }}>
+          <TopRated user={userId}></TopRated>
+        </Icon.TabBarItemIOS>
+        
         <Icon.TabBarItemIOS
           title="Settings"
           iconName="ios-settings-outline"
@@ -102,6 +120,18 @@ class TabBarIos extends Component {
             });
           }}>
           <CreateCaption user={userId}></CreateCaption>
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
+          title="Top Rated"
+          iconName="ios-star-outline"
+          selectedIconName="ios-star"
+          selected={this.state.selectedTab === 'top'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'top',
+            });
+          }}>
+          <TopRated user={userId}></TopRated>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );

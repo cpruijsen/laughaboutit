@@ -72,7 +72,6 @@ class Card extends Component {
     if (!this.props.font) {
       this.props.font = 'Karla-Bold';
     }
-    console.log('props on Cards component ', this.props);
     return (
       <View style={styles.card}>
          <Image style={styles.image} source={{uri: this.props.image || 'https://s3-us-west-1.amazonaws.com/labitapp/dog1.jpeg'}}> 
@@ -96,18 +95,11 @@ class Swiper extends Component {
 	}
 
 	handleUpvote(captionId) {
-		console.log('handleUpvote fired');
         api.upVote(captionId);
 	}
-
 	handleNope(captionId) {
-      console.log('handleNope fired');
       api.downVote(captionId);
 	}
-
-  // do we need this function? 
-// 	cardRemoved(index) { // TODO: change this function.
-// 	}
 
 	render() {
 		return (
@@ -116,13 +108,12 @@ class Swiper extends Component {
 			  loop={false}
 
 			  renderCard={(cardData) => <Card {...cardData} />} // didn't know you could wrap cardData that way
-			  renderNoMOreCards={() => <NoMoreCards/>}
+			  renderNoMoreCards={() => <NoMoreCards/>}
 			  showYup={true}
 			  showNope={true}
 
 			  handleYup={this.handleUpvote}
 			  handleNope={this.handleNope}
-// 			  cardRemoved={this.cardRemoved.bind(this)}
 			/>
 		);
 	}
@@ -148,6 +139,8 @@ class Home extends Component { // NOTE: this.props.user === userId for current l
     }).then( (res) => {
       console.log('success getDailyRawImage', res);
       that.setState({image: res.url}); 
+    }).catch( (err) => {
+      console.log('err on fetch image - HOME', err);
     }); // TODO: call this from api
     
     // fetch all captions (top-bottom), likes, fonts etc. in sorted order (server side sorting)
@@ -161,21 +154,24 @@ class Home extends Component { // NOTE: this.props.user === userId for current l
           if (caption.font) {
             captionfont = caption.font.slice(1, caption.font.length-1); // needed due to db issue with double string. ''fontname''
           } else {
-             captionfont = caption.font;
+             captionfont = undefined;
           }
           return { // TODO: check if res includes posting userId
             caption_bottom: caption.caption_bottom,
             caption_top: caption.caption_top,
             font: captionfont,
             likes: caption.likes,
+            dislikes: caption.dislikes,
             id: caption.id,
-            image: that.state.image,
-            votingUser: that.props.user // userId, could be used for voting, tracking who liked etc.
+            userId: caption.userId, // user who posted the caption
+            image: that.state.image
           }
         });
-        that.setState({cards: cards}); // only change state if successful (!!res)
-        that.setState({noMoreCaptions: false});
+        console.log('cards fetched', cards);
+        that.setState({cards: cards});
       }
+     }).catch( (err) => {
+       console.log('err on fetch captions - HOME', err);
      });
   }
 

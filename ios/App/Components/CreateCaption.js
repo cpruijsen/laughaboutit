@@ -128,6 +128,8 @@ class CreateCaption extends Component {
         console.log('success getDailyRawImage', res);
         that.setState({dailyImage: res.url}); 
         that.setState({photoId: res.id});
+      }).catch( (err) => {
+        console.log('err on fetch image', err);
       }); // TODO: call this from api
     }
   } 

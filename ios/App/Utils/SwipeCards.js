@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Animated, PanResponder, Image} from 'react-native';
+import { StyleSheet, Text, View, Animated, PanResponder, Image, TouchableHighlight} from 'react-native';
 import clamp from 'clamp';
 import NoMoreCards from './../Components/Default';
 
@@ -13,6 +13,8 @@ class SwipeCards extends Component {
       pan: new Animated.ValueXY(),
       enter: new Animated.Value(0.5),
       card: this.props.cards[0],
+      oldIndex: 0,
+      noMoreCards: false
     }
   }
 
@@ -25,6 +27,12 @@ class SwipeCards extends Component {
     let card = newIdx > this.props.cards.length - 1
       ? this.props.loop ? this.props.cards[0] : null
       : this.props.cards[newIdx];
+    
+    // we set state so we can render NoMoreCards and load a new set of cards if available.
+    if (!card) {
+      this.setState({noMoreCards: true});
+      this.setState({oldIndex: currentCardIdx});
+    }
 
     this.setState({
       card: card
@@ -72,11 +80,6 @@ class SwipeCards extends Component {
             ? this.props.handleYup(this.state.card.id) 
             : this.props.handleNope(this.state.card.id) 
 
-// can we do without this? 
-//           this.props.cardRemoved 
-//             ? this.props.cardRemoved(this.props.cards.indexOf(this.state.card))
-//             : null
-
           Animated.decay(this.state.pan, {
             velocity: {x: velocity, y: vy},
             deceleration: 0.98
@@ -99,16 +102,27 @@ class SwipeCards extends Component {
   }
 
   renderNoMoreCards() {
-    if (this.props.renderNoMoreCards)
+    if (this.props.renderNoMoreCards) {
       return this.props.renderNoMoreCards();
-
+    }
     return (
-      <NoMoreCards />
+      <NoMoreCards /> // TODO: add a fetch method / button
     )
   }
 
   renderCard(cardData) {
     return this.props.renderCard(cardData)
+  }
+
+  handleLoad() {
+    // workaround to setState of card and re-render when the promise to fetch cards returns.
+    if(!this.state.card && this.props.cards && !this.state.noMoreCards) {
+       this.setState({card: this.props.cards[0]});
+    } else if (this.state.noMoreCards) {
+      this.renderNoMoreCards();  // NOTE: not rendering.
+    } else {
+      // do a fetch  -> TODO: add a refresh button to NoMoreCards
+    }  
   }
 
   render() {
@@ -132,14 +146,13 @@ class SwipeCards extends Component {
 
     return (
       <View style={styles.container}>
-        { this.state.card
-            ? (
-            <Animated.View style={[styles.card, animatedCardstyles]} {...this._panResponder.panHandlers}>
-              {this.renderCard(this.state.card)}
-            </Animated.View>
-            )
-            : this.renderNoMoreCards() }
-
+        { this.state.card  ? 
+          <Animated.View style={[styles.card, animatedCardstyles]} {...this._panResponder.panHandlers}>
+            {this.renderCard(this.state.card)}
+          </Animated.View> :
+        this.state.NoMoreCards ? <NoMoreCards /> : <TouchableHighlight style={styles.button} onPress={this.handleLoad.bind(this)}>
+            <Text style={styles.text}> No Cards Rendered - Refresh</Text>
+          </TouchableHighlight> }
 
         { this.props.showNope
           ? (
@@ -213,6 +226,17 @@ var styles = StyleSheet.create({
   nopeText: {
     fontSize: 16,
     color: 'red',
+  },
+  button: {  // TODO: change alignment.
+    width: 300,
+    marginLeft: 50,
+    marginBottom: 7,
+    backgroundColor: 'white',
+    borderColor: 'blue', 
+    borderWidth: 0.5
+  },
+  text: {
+    fontSize: 20
   }
 });
 

@@ -61,31 +61,37 @@ let api = {
       headers: {
         "Content-Type": "application/json",
       },
-      body:JSON.Stringify(newUserInfo)
+      body: JSON.stringify(newUserInfo)
     }).then( () => { 
       console.log('success on upVote');
     });
   }, // function to upvote a particular caption
   upVote (captionId) {
+    // console.log('starting PUT upVote', captionId); // commented out - too many logs.
+    var captionId = {captionId: captionId};
+    
     return fetch('https://shielded-springs-75726.herokuapp.com/captions/upvote', {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
       },
-      body:JSON.Stringify(captionId)
-    }).then( () => { 
-      console.log('success on upVote');
+      body: JSON.stringify(captionId)
+    }).then( (res) => { 
+      // console.log('success on upVote', res); // commented out - too many logs.
     });
   }, // downvote a caption (swipe no/left)
   downVote (captionId) {
+    // console.log('starting PUT downVote', captionId); // commented out - too many logs.
+    var captionId = {captionId: captionId};
+    
      return fetch('https://shielded-springs-75726.herokuapp.com/captions/downvote', {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.Stringify(captionId)
+      body: JSON.stringify(captionId)
     }).then( () => { 
-      console.log('success on downVote');
+      // console.log('success on downVote');  // commented out - too many logs.
     });
   },
   // register user in our DB, used for later updating of user records.
@@ -109,7 +115,7 @@ let api = {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.Stringify(userId)
+      body: JSON.stringify(userId)
     }).then( (data) => { // TODO: check for endpoint with team.
       return data.json();
     }).then( (res) => {

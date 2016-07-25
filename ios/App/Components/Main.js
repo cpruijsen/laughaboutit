@@ -52,8 +52,7 @@ class Login extends Component { // add extra FB permissions on next line.
                             fb_access: accessToken
                           };
                           console.log('userObj pre fetch POST to DB', user);
-//                           api.userSignUp(user);
-                          fetch('https://shielded-springs-75726.herokuapp.com/users/create', { // TODO: call this from api
+                          fetch('https://shielded-springs-75726.herokuapp.com/users/create', { 
                             method: 'POST',
                             headers: {
                               "Content-Type": "application/json",
@@ -62,7 +61,7 @@ class Login extends Component { // add extra FB permissions on next line.
                           }).then( (data) => {
                             return data.json();
                           }).then( (res) => {
-                            console.log('response on userSignUp', res.newUserId);
+                            console.log('response on userSignUp', res); 
                             dbUserId = res.newUserId; // custom to this component, so maybe best not to delegate to api
                             toPage('Tab', dbUserId); 
                           }).catch( (err) => {
@@ -72,7 +71,7 @@ class Login extends Component { // add extra FB permissions on next line.
                       );  
                     new GraphRequestManager().addRequest(infoRequest).start();
                   }
-                ) // removed previous chained promise.
+                ) 
               }
             }
           }
