@@ -115,70 +115,68 @@ class TopRated extends Component {
     }).then( (data) => {
       console.log('all images', data);
       that.setState({allImages: data});
-    });
-    
-    // NOTE: data: {limit: 5, sort: 'likes', order: 'desc'} which works in $.ajax doesn't work w fetch()
-  
-    // get the top 5 of the day
-    fetch('https://shielded-springs-75726.herokuapp.com/captions/giveusthisday', { 
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then( (res) => {
-      return res.json();
-    }).then( (data) => {
-      console.log('presort top5 today', data);
-      var sortedTodayByLikes = _.sortBy(data, 'likes').reverse().slice(0, 5);
-      console.log('postsort top5 today', sortedTodayByLikes);
-      
-      // NOTE potential promise dependency issue re: images.
-      var todayCards = sortedTodayByLikes.map( (caption) => {
-        var image = that.state.allImages.filter( (imageObj) => {
-          return imageObj.id === caption.url; // check prop names.
-        });
-        var card = {
-          caption: caption, // {caption_bottom, caption_top, etc.}
-          imageURL: image.url // check prop names.
+      // NOTE: data: {limit: 5, sort: 'likes', order: 'desc'} which works in $.ajax doesn't work w fetch()
+      // get the top 5 of the day
+      fetch('https://shielded-springs-75726.herokuapp.com/captions/giveusthisday', { 
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json"
         }
-        return card;
-      });
-      
-      console.log('todayCards', todayCards);
-      that.setState({todayCards: todayCards});
-    }).catch( (err) => {
-      console.log('error on captions/giveusthisday GET', err);
-    });
-    
-    // top 10 all time
-    fetch('https://shielded-springs-75726.herokuapp.com/captions', { 
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then( (res) => {
-      return res.json();
-    }).then( (data) => {
-      console.log('presort top10 alltime', data);
-      var sortedAllByLikes = _.sortBy(data, 'likes').reverse().slice(0, 10);
-      console.log('postsort top10 alltime', sortedAllByLikes);
-      
-      // NOTE potential promise dependency issue re: images.
-      var allCards = sortedAllByLikes.map( (caption) => {
-        var image = that.state.allImages.filter( (imageObj) => {
-          return imageObj.id === caption.url; // check prop names.
+      }).then( (res) => {
+        return res.json();
+      }).then( (data) => {
+        console.log('presort top5 today', data);
+        var sortedTodayByLikes = _.sortBy(data, 'likes').reverse().slice(0, 5);
+        console.log('postsort top5 today', sortedTodayByLikes);
+
+        // NOTE potential promise dependency issue re: images.
+        var todayCards = sortedTodayByLikes.map( (caption) => {
+          var image = that.state.allImages.filter( (imageObj) => {
+            return imageObj.id === caption.photoId; // check prop names.
+          }); // returns [{..., url: string}]
+          var card = {
+            caption: caption, // {caption_bottom, caption_top, etc.}
+            imageURL: image[0].url // check prop names.
+          }
+          return card;
         });
-        var card = {
-          caption: caption, // {caption_bottom, caption_top, etc.}
-          imageURL: image.url // check prop names.
-        }
-        return card;
+
+        console.log('todayCards', todayCards);
+        that.setState({todayCards: todayCards});
+      }).catch( (err) => {
+        console.log('error on captions/giveusthisday GET', err);
       });
-      
-      console.log('allCards', allCards);
-      that.setState({allCards: allCards});
-    }).catch( (err) => {
-      console.log('error on captions/giveusthisday GET', err);
+
+      // top 10 all time
+      fetch('https://shielded-springs-75726.herokuapp.com/captions', { 
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then( (res) => {
+        return res.json();
+      }).then( (data) => {
+        console.log('presort top10 alltime', data);
+        var sortedAllByLikes = _.sortBy(data, 'likes').reverse().slice(0, 10);
+        console.log('postsort top10 alltime', sortedAllByLikes);
+
+        // NOTE potential promise dependency issue re: images.
+        var allCards = sortedAllByLikes.map( (caption) => {
+          var image = that.state.allImages.filter( (imageObj) => {
+            return imageObj.id === caption.photoId; // check prop names.
+          }); // returns [{..., url: string}]
+          var card = {
+            caption: caption, // {caption_bottom, caption_top, etc.}
+            imageURL: image[0].url // check prop names.
+          }
+          return card;
+        });
+
+        console.log('allCards', allCards);
+        that.setState({allCards: allCards});
+      }).catch( (err) => {
+        console.log('error on captions/giveusthisday GET', err);
+      });
     });
   }
   
@@ -190,13 +188,17 @@ class TopRated extends Component {
     this.setState({showAll: true});
   }
   
-  handleUpvote(captionId) { // NOTE: TouchableHighlight on Image in ScrollView doesn't work well.
-    api.upVote(captionId); // experimented (lastmin) with <View><TouchableHighlight>...</TouchableHighlight></View>
+  // NOTE: TouchableHighlight on Image in ScrollView doesn't work well.
+  // experimented (lastmin) with <View><TouchableHighlight>...</TouchableHighlight></View>
+  // for now disabled, until solved. 
+  // bug: manual click doesn't work, and both buttons are automatically clicked on scrollview render.
+  handleUpvote(captionId) { 
+   // api.upVote(captionId); 
     console.log('upvoted'); 
 //     alert('upvoted!');
   }
   handleNope(captionId) {
-    api.downVote(captionId);
+  //  api.downVote(captionId);
 //     alert('downvoted!');
     console.log('downvoted');
   }
