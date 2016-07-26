@@ -2,8 +2,9 @@ import React, { Component, } from 'react';
 import { View, Image, Text, TouchableHighlight, StyleSheet, ScrollView } from 'react-native';
 import api from './../Utils/api';
 import _ from 'underscore'; 
-
 // scrollView: https://facebook.github.io/react-native/docs/scrollview.html
+
+// NOTE: this component needs polish - done last-minute.
 
 var styles = StyleSheet.create({
   container: {
@@ -25,8 +26,8 @@ var styles = StyleSheet.create({
   image: {
     width: 300,
     height: 200
-  },
-  topAlign: {
+  }, 
+  topAlign: { // styling is messed up...
     position: 'absolute',
     top: 10,
   },
@@ -37,17 +38,55 @@ var styles = StyleSheet.create({
   text: {
     fontSize: 20
   },
+  buttonText: {
+    fontSize: 10
+  },
    button: {  // TODO: change alignment.
     width: 300,
-    marginLeft: 50,
-    marginBottom: 7,
+    marginTop: 10,
+    marginBottom: 10,
     backgroundColor: 'white',
     borderColor: 'blue', 
     borderWidth: 0.5
   },
-  scrollView: {
+  overlayButtonLeft: { // TODO: use icon instead of bordered text
+    width: 30,
+    height: 30,
+//     left: 30,
+//     top: 50,
+    backgroundColor: 'white',
+    borderColor: 'blue', 
+    borderWidth: 0.5
+  },
+  alignOverlayLeft: {
+    left: 30,
+    top: 50,
+  },
+  alignOverlayRight: {
+    left: 250,
+    top: 50,
+  },
+  overlayButtonRight: { // TODO: use icon instead of bordered text
+    width: 30,
+    height: 30,
+//     left: 250,
+    // right: 80, // picture is not in the middle of the scrollView currently, need to change.
+//     top: 50,
+    backgroundColor: 'white',
+    borderColor: 'blue', 
+    borderWidth: 0.5
+  },
+  scrollView: { // TODO: scrollView doesn't have spacing between images currently.
     backgroundColor: '#6A85B1',
-    height: 500,
+    // position: 'absolute', top: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    height: 500
+  },
+  bottomAlign: {
+    position: 'absolute',
+    left: 60,
+    bottom: 30
   }
 });
 
@@ -151,11 +190,15 @@ class TopRated extends Component {
     this.setState({showAll: true});
   }
   
-  handleUpvote(captionId) {
-    api.upVote(captionId);
+  handleUpvote(captionId) { // NOTE: TouchableHighlight on Image in ScrollView doesn't work well.
+    api.upVote(captionId); // experimented (lastmin) with <View><TouchableHighlight>...</TouchableHighlight></View>
+    console.log('upvoted'); 
+//     alert('upvoted!');
   }
   handleNope(captionId) {
     api.downVote(captionId);
+//     alert('downvoted!');
+    console.log('downvoted');
   }
   
   fontStyle(font) {  // NOTE: was dependent on re-renders due to keys on text elements before.
@@ -166,9 +209,9 @@ class TopRated extends Component {
     }
     
     return {  
-      fontSize: 10, // change ? 
+      fontSize: 20, // change ? 
       width: 300,
-      height: 10,
+      height: 20,
       textAlign: 'center',
       backgroundColor: 'rgba(0,0,0,0)',
       color: 'white',
@@ -178,11 +221,6 @@ class TopRated extends Component {
 
   render() {
   var that = this;
-
-    /*
-    <TouchableHighlight style={styles.button} onPress={that.handleUpvote.bind(this)}>Upvote</TouchableHighlight>
-    <TouchableHighlight style={styles.button} onPress={that.handleNope.bind(this)}>Downvote</TouchableHighlight>
-    */
     
     var _scrollView: ScrollView; // TODO: improve styling.
     return (
@@ -202,8 +240,23 @@ class TopRated extends Component {
               <View style={styles.bottomAlign}>
                 <Text style={that.fontStyle(caption.caption.font)}>{caption.caption.caption_bottom || 'no bottom'}</Text>
               </View>
-             
-              <Text style={styles.text}>Number of Likes: {caption.caption.likes || 0} </Text>   
+              <View style={styles.alignOverlayLeft}>
+                <TouchableHighlight style={styles.overlayButtonLeft} onPress={that.handleNope(caption.caption.id)}>
+                  <Text style={styles.buttonText}>
+                    Downvote
+                  </Text>
+                </TouchableHighlight>
+              </View>
+              <View style={styles.alignOverlayRight}>
+                <TouchableHighlight style={styles.overlayButtonRight} onPress={that.handleUpvote(caption.caption.id)}>
+                  <Text style={styles.buttonText}>
+                    Upvote
+                  </Text>
+                </TouchableHighlight>
+              </View>
+              <View style={styles.bottomAlign}>
+                <Text style={styles.buttonText}>Number of Likes: {caption.caption.likes || 0} </Text>
+              </View>   
             </Image> 
             }) : this.state.todayCards.map( (caption) => {
               return <Image key={caption.caption.id} style={styles.image} // placeholder
@@ -214,7 +267,23 @@ class TopRated extends Component {
                 <View style={styles.bottomAlign}>
                   <Text style={that.fontStyle(caption.caption.font)}>{caption.caption.caption_bottom || 'no bottom'}</Text>
                 </View>
-                <Text style={styles.text}>Number of Likes: {caption.caption.likes || 0} </Text>   
+              <View style={styles.alignOverlayLeft}>
+                <TouchableHighlight style={styles.overlayButtonLeft} onPress={that.handleNope(caption.caption.id)}>
+                  <Text style={styles.buttonText}>
+                    Downvote
+                  </Text>
+                </TouchableHighlight>
+              </View>
+              <View style={styles.alignOverlayRight}>
+                <TouchableHighlight style={styles.overlayButtonRight} onPress={that.handleUpvote(caption.caption.id)}>
+                  <Text style={styles.buttonText}>
+                    Upvote
+                  </Text>
+              </TouchableHighlight>
+              </View>
+              <View style={styles.bottomAlign}>
+                <Text style={styles.buttonText}>Number of Likes: {caption.caption.likes || 0} </Text>
+              </View>  
               </Image>
             })
           } 

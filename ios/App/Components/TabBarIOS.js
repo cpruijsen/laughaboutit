@@ -54,6 +54,7 @@ class TabBarIos extends Component {
     /* to add:
     
     // NOTE: too many tabs? maybe don't list UserProfile as a tab, instead have it as click-through only on captions.
+    // camera also probably better in a different menu / navigated to from a screen instead of TabBar
     
         <Icon.TabBarItemIOS
           title="Profile"
@@ -69,19 +70,6 @@ class TabBarIos extends Component {
         </Icon.TabBarItemIOS>
       
         <Icon.TabBarItemIOS
-          title="Top Rated"
-          iconName="ios-star-outline"
-          selectedIconName="ios-star"
-          selected={this.state.selectedTab === 'top'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'top',
-            });
-          }}>
-          <TopRated user={userId}></TopRated>
-        </Icon.TabBarItemIOS>
-        
-        <Icon.TabBarItemIOS
           title="Settings"
           iconName="ios-settings-outline"
           selectedIconName="ios-settings"
@@ -92,6 +80,19 @@ class TabBarIos extends Component {
             });
           }}>
           <Settings user={userId}></Settings>
+        </Icon.TabBarItemIOS>
+        
+         <Icon.TabBarItemIOS
+          title="SubmitPhoto"
+          iconName="ios-star-outline"
+          selectedIconName="ios-star"
+          selected={this.state.selectedTab === 'submit'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'submit',
+            });
+          }}>
+          <SubmitPhoto user={userId}></SubmitPhoto>
         </Icon.TabBarItemIOS>
     */
     return (
@@ -133,18 +134,6 @@ class TabBarIos extends Component {
             });
           }}>
           <TopRated user={userId}></TopRated>
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title="SubmitPhoto"
-          iconName="ios-star-outline"
-          selectedIconName="ios-star"
-          selected={this.state.selectedTab === 'submit'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'submit',
-            });
-          }}>
-          <SubmitPhoto user={userId}></SubmitPhoto>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     );
